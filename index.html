@@ -1,0 +1,103 @@
+<html>
+<head>
+  <title>Personalize seu arranjo de flores</title>
+  <style>
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+    .item {
+      margin: 10px;
+      width: 200px;
+      height: 200px;
+      border: 1px solid black;
+    }
+    .selected {
+      border: 3px solid green;
+    }
+    .button {
+      margin: 20px;
+      padding: 10px;
+      background-color: lightblue;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Personalize seu arranjo de flores</h1>
+  <p>Escolha as flores que você deseja incluir no seu arranjo clicando nas imagens abaixo. Você pode selecionar até três tipos de flores diferentes. Depois, clique no botão "Gerar arranjo" para ver o resultado.</p>
+  <div class="container">
+    <div class="item" onclick="select(this)">
+      <img src="rosa.jpg" alt="Rosa" width="200" height="200">
+      <p>Rosa</p>
+    </div>
+    <div class="item" onclick="select(this)">
+      <img src="girassol.jpg" alt="Girassol" width="200" height="200">
+      <p>Girassol</p>
+    </div>
+    <div class="item" onclick="select(this)">
+      <img src="orquidea.jpg" alt="Orquídea" width="200" height="200">
+      <p>Orquídea</p>
+    </div>
+    <div class="item" onclick="select(this)">
+      <img src="margarida.jpg" alt="Margarida" width="200" height="200">
+      <p>Margarida</p>
+    </div>
+    <div class="item" onclick="select(this)">
+      <img src="lirio.jpg" alt="Lírio" width="200" height="200">
+      <p>Lírio</p>
+    </div>
+    <div class="item" onclick="select(this)">
+      <img src="tulipa.jpg" alt="Tulipa" width="200" height="200">
+      <p>Tulipa</p>
+    </div>
+  </div>
+  <button class="button" onclick="generate()">Gerar arranjo</button>
+  <script>
+    // Variável que armazena os nomes das flores selecionadas
+    var selectedFlowers = [];
+    
+    // Função que adiciona ou remove uma flor da lista de selecionadas
+    function select(element) {
+      // Obter o nome da flor a partir do texto do elemento
+      var flower = element.getElementsByTagName("p")[0].innerHTML;
+      // Verificar se a flor já está na lista de selecionadas
+      var index = selectedFlowers.indexOf(flower);
+      if (index == -1) {
+        // Se não estiver, adicionar à lista e mudar a borda do elemento para verde
+        selectedFlowers.push(flower);
+        element.classList.add("selected");
+      } else {
+        // Se estiver, remover da lista e mudar a borda do elemento para preto
+        selectedFlowers.splice(index, 1);
+        element.classList.remove("selected");
+      }
+    }
+    
+    // Função que gera o arranjo de flores a partir da lista de selecionadas
+    function generate() {
+      // Verificar se a lista de selecionadas tem pelo menos uma flor
+      if (selectedFlowers.length > 0) {
+        // Criar uma variável que armazena o código HTML do arranjo
+        var arrangement = "<h2>Seu arranjo de flores</h2><div class='container'>";
+        // Percorrer a lista de selecionadas e adicionar uma imagem de cada flor ao código HTML
+        for (var i = 0; i < selectedFlowers.length; i++) {
+          var flower = selectedFlowers[i];
+          var image = flower.toLowerCase() + ".jpg";
+          arrangement += "<div class='item'><img src='" + image + "' alt='" + flower + "' width='200' height='200'><p>" + flower + "</p></div>";
+        }
+        // Fechar o código HTML do arranjo
+        arrangement += "</div>";
+        // Exibir o código HTML do arranjo na página
+        document.write(arrangement);
+      } else {
+        // Se a lista de selecionadas estiver vazia, exibir uma mensagem de erro
+        alert("Você precisa escolher pelo menos uma flor para gerar o arranjo.");
+      }
+    }
+  </script>
+</body>
+</html>
